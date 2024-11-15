@@ -1,0 +1,44 @@
+# Laravel
+/backend/src/vendor/
+/backend/src/node_modules/
+/backend/src/.env
+/backend/src/public/storage
+/backend/src/public/hot
+/backend/src/storage/*.key
+/backend/src/storage/logs/*
+/backend/src/storage/framework/cache/*
+/backend/src/storage/framework/sessions/*
+/backend/src/storage/framework/testing/*
+/backend/src/storage/framework/views/*
+/backend/.phpunit.result.cache
+/backend/docker/mysql/data/
+
+# Nuxt.js
+/frontend/src/node_modules/
+/frontend/src/.nuxt/
+/frontend/src/dist/
+/frontend/src/.env
+/frontend/src/.output
+
+# Docker
+.docker/data/
+
+# IDE & Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+*.swp
+*.swo
+.DS_Store
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
