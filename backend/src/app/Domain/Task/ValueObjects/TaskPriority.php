@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Domain\Task\ValueObjects;
+
 enum TaskPriority: string
 {
     case LOW = 'low';

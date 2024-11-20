@@ -10,7 +10,7 @@ enum TaskStatus: string
     case IN_PROGRESS = 'in_progress';
     case DONE = 'done';
 
-    public static function tryFrom(string $value): ?self
+    public static function fromOrDefault(string $value): self
     {
         return self::tryFrom($value) ?? self::TODO;
     }
