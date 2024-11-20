@@ -1,12 +1,22 @@
+# frontend/Dockerfile
 FROM node:18-alpine
 
 WORKDIR /app
 
-# 必要なツールをインストール
-RUN apk add --no-cache git
-
-# グローバルの依存関係をインストール
+# グローバルパッケージのインストール
 RUN npm install -g npm@latest
 
-# コンテナ起動時のコマンド
-CMD ["sh", "-c", "npm install && npm run dev"]
+# パッケージファイルをコピー
+COPY ./src/package*.json ./
+
+# 依存関係のインストール
+RUN npm install
+
+# 残りのソースコードをコピー
+COPY ./src .
+
+# ポートの設定
+EXPOSE 3000
+
+# 起動コマンド
+CMD ["npm", "run", "dev"]
