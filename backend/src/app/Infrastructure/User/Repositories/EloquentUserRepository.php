@@ -43,7 +43,7 @@ class EloquentUserRepository implements UserRepositoryInterface
             $userModel->fill([
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
-                'password' => Hash::make($user->getPassword())
+                'password' => $user->getPassword()
             ]);
             $userModel->save();
 

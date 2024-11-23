@@ -15,7 +15,7 @@ class User
     private ?DateTime $updatedAt;
 
     public function __construct(
-        int $id,
+        ?int $id,
         string $name,
         string $email,
         string $password,
@@ -32,7 +32,7 @@ class User
         $this->updatedAt = $updatedAt ?? new DateTime();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
