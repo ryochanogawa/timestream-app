@@ -19,6 +19,7 @@
 /frontend/src/dist/
 /frontend/src/.env
 /frontend/src/.output
+/frontend/node_modules/
 
 # Docker
 .docker/data/
