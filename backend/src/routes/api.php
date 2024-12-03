@@ -24,12 +24,12 @@ Route::prefix('v1')->group(function () {
     // 認証が不要なルート
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::apiResource('tasks', TaskController::class);
+    //Route::apiResource('tasks', TaskController::class);
 
     // 認証が必要なルート
     Route::middleware('auth:sanctum')->group(function () {
         // TODO: taskのルートを追加
-        // Route::apiResource('tasks', TaskController::class);
+        Route::apiResource('tasks', TaskController::class);
         Route::post('logout', [AuthController::class, 'logout']);
     });
 });
