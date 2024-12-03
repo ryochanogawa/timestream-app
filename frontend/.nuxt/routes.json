@@ -3,19 +3,16 @@
     "name": "login",
     "path": "/login",
     "component": "/app/src/pages/login.vue",
-    "chunkName": "pages/login",
-    "_name": "_1cd9f278"
+    "chunkName": "pages/login"
   },
   {
     "name": "tasks",
     "path": "/tasks",
     "component": "/app/src/pages/tasks.vue",
-    "chunkName": "pages/tasks",
-    "_name": "_63e0f869"
+    "chunkName": "pages/tasks"
   },
   {
     "path": "/",
-    "redirect": "/login",
-    "_name": "_29172c1a"
+    "redirect": "/login"
   }
 ]
