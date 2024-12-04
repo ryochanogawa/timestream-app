@@ -22,14 +22,16 @@ class CreateTaskCommand
         ?string $description,
         ?string $dueDate,
         string $status = 'todo',
-        string $priority = 'medium'
+        string $priority = 'medium',
+        int $userId
     ): Task {
         $task = new Task(
             title: $title,
             description: $description,
             dueDate: $dueDate ? new DateTime($dueDate) : null,
             status: TaskStatus::fromOrDefault($status),
-            priority: TaskPriority::fromOrDefault($priority)
+            priority: TaskPriority::fromOrDefault($priority),
+            userId: $userId
         );
 
         return $this->taskRepository->save($task);

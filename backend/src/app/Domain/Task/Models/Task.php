@@ -16,6 +16,7 @@ class Task
     private ?DateTime $dueDate;
     private TaskStatus $status;
     private TaskPriority $priority;
+    private int $userId;
 
     public function __construct(
         string $title,
@@ -23,7 +24,8 @@ class Task
         ?DateTime $dueDate = null,
         ?TaskStatus $status = null,
         ?TaskPriority $priority = null,
-        ?int $id = null
+        ?int $id = null,
+        int $userId
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -31,6 +33,7 @@ class Task
         $this->dueDate = $dueDate;
         $this->status = $status ?? TaskStatus::TODO;
         $this->priority = $priority ?? TaskPriority::MEDIUM;
+        $this->userId = $userId;
     }
 
     // Getters
@@ -73,5 +76,10 @@ class Task
     public function updatePriority(TaskPriority $newPriority): void
     {
         $this->priority = $newPriority;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
     }
 }

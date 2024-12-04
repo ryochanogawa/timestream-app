@@ -13,9 +13,9 @@ class GetTaskListQuery
         $this->taskRepository = $taskRepository;
     }
 
-    public function execute(): array
+    public function execute(int $userId): array
     {
-        return $this->taskRepository->findAll();
+        return $this->taskRepository->findByUserId($userId);
     }
 
     public function executeById(int $id)

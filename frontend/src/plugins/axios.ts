@@ -1,16 +1,22 @@
 // frontend/src/plugins/axios.ts
 import { Plugin } from '@nuxt/types'
-import axios from 'axios'
 
-const axiosPlugin: Plugin = ({ $config }, inject) => {
-  const api = axios.create({
-    baseURL: process.env.API_BASE_URL || 'http://localhost:8000/api/v1',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+const axiosPlugin: Plugin = ({ $axios, redirect }) => {
+  $axios.onRequest(config => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.common['Authorization'] = `Bearer ${token}`
+    }
+    return config
   })
 
-  inject('api', api)
+  $axios.onError(error => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token')
+      redirect('/login')
+    }
+    return Promise.reject(error)
+  })
 }
 
 export default axiosPlugin

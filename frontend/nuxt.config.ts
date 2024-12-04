@@ -2,8 +2,14 @@
 import { NuxtConfig } from '@nuxt/types'
 
 const config: NuxtConfig = {
-  // Target
+
+  srcDir: 'src/',
+  ssr: false,
+
+  // Target (SSR無効化に伴いspaに変更)
   target: 'static',
+  mode: 'spa',
+
 
   // Global page headers
   head: {
@@ -23,12 +29,14 @@ const config: NuxtConfig = {
 
   // Global CSS
   css: [
-    '@/assets/css/main.css'
+    '@/assets/css/main.css',
+    '@/assets/css/tailwind.css',
   ],
 
   // Plugins
   plugins: [
-    '~/plugins/axios'
+    '~/plugins/axios',
+    '~/plugins/auth'
   ],
 
   // Auto import components
@@ -37,7 +45,9 @@ const config: NuxtConfig = {
   // Build modules
   buildModules: [
     '@nuxt/typescript-build',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    ['@nuxtjs/composition-api/module', { baseUrl: 'http://localhost:3000' }]
+    // '@nuxtjs/composition-api/module'
   ],
 
   // Modules
@@ -61,6 +71,21 @@ const config: NuxtConfig = {
         }
       }
     }
+  },
+
+  router: {
+    middleware: ['auth', 'guest'],
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: '/',
+        redirect: '/login'
+      })
+    }
+  },
+
+  // リダイレクト時のエラーを防ぐために追加
+  generate: {
+    fallback: true
   },
 
   // Server setup

@@ -9,6 +9,7 @@ use App\Domain\Task\Models\Task;
 interface TaskRepositoryInterface
 {
     public function findById(int $id): ?Task;
+    public function findByUserId(int $userId): array;
     public function findAll(): array;
     public function save(Task $task): Task;
     public function delete(int $id): bool;

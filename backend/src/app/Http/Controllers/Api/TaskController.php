@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -28,10 +29,10 @@ class TaskController extends Controller
         $this->getTaskListQuery = $getTaskListQuery;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
-            $tasks = $this->getTaskListQuery->execute();
+            $tasks = $this->getTaskListQuery->execute($request->user()->id);
             return response()->json($tasks);
         } catch (\Exception $e) {
             return response()->json(['error' => '処理中にエラーが発生しました。', 'message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -45,7 +46,8 @@ class TaskController extends Controller
             $request->description,
             $request->due_date,
             $request->status,
-            $request->priority
+            $request->priority,
+            $request->user()->id
         );
 
         return response()->json($task, Response::HTTP_CREATED);

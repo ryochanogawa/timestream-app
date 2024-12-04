@@ -5,9 +5,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Domain\Task\Repositories\TaskRepositoryInterface;
+use App\Domain\User\Repositories\UserRepositoryInterface;
 use App\Infrastructure\Task\Repositories\EloquentTaskRepository;
+use App\Infrastructure\User\Repositories\EloquentUserRepository;
 use App\Application\Task\Commands\CreateTaskCommand;
 use App\Application\Task\Commands\UpdateTaskCommand;
+use App\Application\User\Commands\LoginUserCommand;
+use App\Application\User\Commands\RegisterUserCommand;
 use App\Application\Task\Queries\GetTaskListQuery;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -33,6 +37,21 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(GetTaskListQuery::class, function ($app) {
             return new GetTaskListQuery(
                 $app->make(TaskRepositoryInterface::class)
+            );
+        });
+
+        // User関連のバインディングを追加
+        $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
+        // User関連のコマンドの紐付け
+        $this->app->bind(RegisterUserCommand::class, function ($app) {
+            return new RegisterUserCommand(
+                $app->make(UserRepositoryInterface::class)
+            );
+        });
+
+        $this->app->bind(LoginUserCommand::class, function ($app) {
+            return new LoginUserCommand(
+                $app->make(UserRepositoryInterface::class)
             );
         });
     }
