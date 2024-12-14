@@ -13,6 +13,7 @@ use App\Application\Task\Commands\UpdateTaskCommand;
 use App\Application\User\Commands\LoginUserCommand;
 use App\Application\User\Commands\RegisterUserCommand;
 use App\Application\Task\Queries\GetTaskListQuery;
+use App\Application\User\Queries\GetUserQuery;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -51,6 +52,12 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(LoginUserCommand::class, function ($app) {
             return new LoginUserCommand(
+                $app->make(UserRepositoryInterface::class)
+            );
+        });
+
+        $this->app->bind(GetUserQuery::class, function ($app) {
+            return new GetUserQuery(
                 $app->make(UserRepositoryInterface::class)
             );
         });

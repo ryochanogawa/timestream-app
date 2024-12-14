@@ -3,16 +3,26 @@
     "name": "login",
     "path": "/login",
     "component": "/app/src/pages/login.vue",
-    "chunkName": "pages/login"
+    "chunkName": "pages/login",
+    "_name": "_1cd9f278"
+  },
+  {
+    "name": "register",
+    "path": "/register",
+    "component": "/app/src/pages/register.vue",
+    "chunkName": "pages/register",
+    "_name": "_02f16b98"
   },
   {
     "name": "tasks",
     "path": "/tasks",
     "component": "/app/src/pages/tasks.vue",
-    "chunkName": "pages/tasks"
+    "chunkName": "pages/tasks",
+    "_name": "_63e0f869"
   },
   {
     "path": "/",
-    "redirect": "/login"
+    "redirect": "/login",
+    "_name": "_29172c1a"
   }
 ]

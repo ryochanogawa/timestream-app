@@ -32,6 +32,7 @@ class TaskController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
+            \Log::info($request->user()->id);
             $tasks = $this->getTaskListQuery->execute($request->user()->id);
             return response()->json($tasks);
         } catch (\Exception $e) {

@@ -13,6 +13,12 @@
           {{ error }}
         </div>
       </div>
+      <!-- 成功メッセージ表示 -->
+      <div v-if="successMessage" class="rounded-md bg-green-50 p-4">
+        <div class="text-sm text-green-700">
+          {{ successMessage }}
+        </div>
+      </div>
       <form class="mt-8 space-y-6" @submit.prevent="handleLogin">
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
@@ -49,6 +55,11 @@
             <span v-else>ログイン</span>
           </button>
         </div>
+        <div class="text-center">
+          <a href="/register" class="text-sm text-gray-500 hover:text-gray-900">
+            新規登録はこちら
+          </a>
+        </div>
       </form>
     </div>
   </div>
@@ -59,6 +70,7 @@
 console.log('login.vue')
 import { defineComponent, ref } from 'vue'
 import { useContext } from '@nuxtjs/composition-api'
+import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { useAuth } from '../composables/useAuth'
 
 export default defineComponent({
@@ -69,8 +81,9 @@ export default defineComponent({
     const password = ref('')
     const error = ref('')
     const loading = ref(false)
-    const { app } = useContext()
-    const router = app.$router
+    const router = useRouter()
+    const route = useRoute()
+    const successMessage = ref(route.value.query?.success || '')
 
     const handleLogin = async () => {
       error.value = ''
@@ -81,7 +94,9 @@ export default defineComponent({
           email: email.value,
           password: password.value
         })
-        //await router.push('/tasks')
+
+        await router.push('/tasks')
+        console.log('ログイン成功')
       } catch (e) {
         error.value = 'ログインに失敗しました。メールアドレスとパスワードを確認してください。'
       } finally {
@@ -93,6 +108,7 @@ export default defineComponent({
       email,
       password,
       error,
+      successMessage,
       loading,
       handleLogin
     }

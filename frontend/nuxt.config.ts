@@ -70,7 +70,8 @@ const config: NuxtConfig = {
           'autoprefixer': {},
         }
       }
-    }
+    },
+    devtools: true
   },
 
   router: {

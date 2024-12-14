@@ -152,7 +152,7 @@
 
   <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import {useRouter} from 'vue-router'
+  import {useRouter} from '@nuxtjs/composition-api'
   import { useTasks } from '../composables/useTasks'
   import { useAuth } from '../composables/useAuth'
   import { CreateTaskPayload, Task } from '../types/task'
@@ -160,7 +160,7 @@
   import TaskForm from '../components/TaskForm.vue'
 
   const router = useRouter()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user, initAuth } = useAuth()
   
   const showForm = ref(false)
   const selectedTask = ref<Task | null>(null)
@@ -176,13 +176,27 @@
   } = useTasks()
 
   onMounted(async () => {
+
+    const token = localStorage.getItem('token')
+    if(token) {
+      await initAuth()
+      if (!user.value?.id) {  // .valueを追加し、idの存在を確認
+        console.error('ユーザーが認証されていません')
+        router.push('/')
+        return
+      }
+    }
+
     try {
+      //console.log('タスクを取得中...')
       await fetchTasks()
+      //console.log('タスクの取得に成功')
     } catch (error) {
       console.error('タスクの取得に失敗しました:', error)
       if(error.response?.status ===401) {
+        console.log('認証エラー、トークンを削除してルートを / にリダイレクト')
         localStorage.removeItem('token')
-        await router.push('/')
+        //await router.push('/')
       }
     }
   })

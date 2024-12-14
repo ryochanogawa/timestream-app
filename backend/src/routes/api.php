@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,12 @@ Route::prefix('v1')->group(function () {
     // 認証が必要なルート
     Route::middleware('auth:sanctum')->group(function () {
         // TODO: taskのルートを追加
-        Route::apiResource('tasks', TaskController::class);
+        // tasksのルートプレフィックスに変更して追加
+        // カスタム以外のルートはapiResourceで作成
+        Route::prefix('tasks')->group(function () {
+            Route::apiResource('/', TaskController::class);
+        });
         Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('user', [UserController::class, 'getUser']);
     });
 });

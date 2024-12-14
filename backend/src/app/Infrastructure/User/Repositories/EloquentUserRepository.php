@@ -13,6 +13,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class EloquentUserRepository implements UserRepositoryInterface
 {
 
+    /**
+     * IDでユーザーを取得する
+     *
+     * @param int $id
+     * @return ?UserEntity
+     */
     public function find(int $id): ?UserEntity
     {
         try {
@@ -24,6 +30,13 @@ class EloquentUserRepository implements UserRepositoryInterface
     }
 
 
+
+    /**
+     * メールアドレスでユーザーを取得する
+     *
+     * @param string $email
+     * @return ?UserEntity
+     */
     public function findByEmail(string $email): ?UserEntity
     {
         try {
@@ -35,6 +48,30 @@ class EloquentUserRepository implements UserRepositoryInterface
     }
 
 
+    /**
+     * ユーザーIDでユーザーを取得する
+     *
+     * @param int $userId
+     * @return ?UserEntity
+     */
+    public function findById(int $userId): ?UserEntity
+    {
+        try {
+            $user = UserModel::find($userId);
+            return $user ? $this->toEntity($user) : null;
+        } catch (ModelNotFoundException $e) {
+            return null;
+        }
+    }
+
+
+
+    /**
+     * ユーザーを保存する
+     *
+     * @param UserEntity $user
+     * @return UserEntity
+     */
     public function save(UserEntity $user): UserEntity
     {
         try {
@@ -54,12 +91,23 @@ class EloquentUserRepository implements UserRepositoryInterface
     }
 
 
+    /**
+     * 全てのユーザーを取得する
+     *
+     * @return Collection
+     */
     public function all(): Collection
     {
         return UserModel::all();
     }
 
 
+    /**
+     * Eloquentモデルをエンティティに変換する
+     *
+     * @param UserModel $user
+     * @return UserEntity
+     */
     private function toEntity(UserModel $user): UserEntity
     {
         return new UserEntity(
