@@ -1,5 +1,7 @@
 <!-- frontend/src/pages/tasks.vue -->
 <template>
+  <div>
+    <NavigationHeader />
     <div class="container mx-auto px-4 py-8">
       <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-900">
@@ -140,7 +142,8 @@
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script lang="ts">
   import { defineComponent } from 'vue'
@@ -158,7 +161,7 @@
   import { CreateTaskPayload, Task } from '../types/task'
   import { TaskStatus } from '../types/task'  // 追加
   import TaskForm from '../components/TaskForm.vue'
-
+  import NavigationHeader from '../components/NavigationHeader.vue'
   const router = useRouter()
   const { isAuthenticated, user, initAuth } = useAuth()
   

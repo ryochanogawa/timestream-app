@@ -51,7 +51,18 @@ class EloquentTaskRepository implements TaskRepositoryInterface
     {
         $tasks = TaskModel::where('user_id', $userId)->get();
         return $tasks->map(function (TaskModel $task) {
-            return $this->toEntity($task);
+            $entity = $this->toEntity($task);
+            return [
+                'id' => $entity->getId(),
+                'user_id' => $entity->getUserId(),
+                'title' => $entity->getTitle(),
+                'description' => $entity->getDescription(),
+                'due_date' => $entity->getDueDate()?->format('Y-m-d'),
+                'status' => $entity->getStatus(),
+                'priority' => $entity->getPriority(),
+                'created_at' => $task->created_at,
+                'updated_at' => $task->updated_at
+            ];
         })->all();
     }
 
@@ -60,14 +71,14 @@ class EloquentTaskRepository implements TaskRepositoryInterface
         $taskModel = $task->getId()
             ? TaskModel::find($task->getId())
             : new TaskModel();
-        \Log::info($taskModel);
 
         $taskModel->fill([
             'title' => $task->getTitle(),
             'description' => $task->getDescription(),
             'due_date' => $task->getDueDate()?->format('Y-m-d'),
             'status' => $task->getStatus()->value,
-            'priority' => $task->getPriority()->value
+            'priority' => $task->getPriority()->value,
+            'user_id' => $task->getUserId()
         ]);
 
         $taskModel->save();

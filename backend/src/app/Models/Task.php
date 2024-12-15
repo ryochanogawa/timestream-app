@@ -13,6 +13,7 @@ class Task extends Model
         'due_date',
         'status',
         'priority',
+        'user_id'
     ];
 
 

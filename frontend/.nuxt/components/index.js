@@ -1,3 +1,4 @@
+export { default as NavigationHeader } from '../../src/components/NavigationHeader.vue'
 export { default as TaskForm } from '../../src/components/TaskForm.vue'
 
 // nuxt/nuxt.js#8607

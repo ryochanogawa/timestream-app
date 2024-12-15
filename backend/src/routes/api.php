@@ -32,9 +32,10 @@ Route::prefix('v1')->group(function () {
         // TODO: taskのルートを追加
         // tasksのルートプレフィックスに変更して追加
         // カスタム以外のルートはapiResourceで作成
-        Route::prefix('tasks')->group(function () {
-            Route::apiResource('/', TaskController::class);
-        });
+        // Route::prefix('tasks')->group(function () {
+        //     Route::apiResource('/', TaskController::class);
+        // });
+        Route::apiResource('tasks', TaskController::class);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('user', [UserController::class, 'getUser']);
     });

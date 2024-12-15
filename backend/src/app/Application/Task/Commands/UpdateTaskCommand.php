@@ -29,7 +29,8 @@ class UpdateTaskCommand
             dueDate: isset($data['due_date']) && $data['due_date'] ? new DateTime($data['due_date']) : $task->getDueDate(),
             status: isset($data['status']) && $data['status'] ? TaskStatus::fromOrDefault($data['status']) : $task->getStatus(),
             priority: isset($data['priority']) && $data['priority'] ? TaskPriority::fromOrDefault($data['priority']) : $task->getPriority(),
-            id: $id
+            id: $id,
+            userId: $task->getUserId()
         );
 
         return $this->taskRepository->save($updatedTask);

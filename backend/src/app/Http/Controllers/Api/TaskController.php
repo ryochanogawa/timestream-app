@@ -32,7 +32,6 @@ class TaskController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
-            \Log::info($request->user()->id);
             $tasks = $this->getTaskListQuery->execute($request->user()->id);
             return response()->json($tasks);
         } catch (\Exception $e) {
@@ -68,12 +67,12 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, int $id): JsonResponse
     {
         try {
-
             $validated = $request->validated();
-            \Log::info($validated);
             // リクエストデータを受け取る
             $task = $this->updateTaskCommand->execute($id, $validated);
         } catch (Exception $e) {
+            \Log::error('エラーが発生しました: ' . $e->getMessage());
+            return response()->json(['error' => '更新中にエラーが発生しました。'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
 

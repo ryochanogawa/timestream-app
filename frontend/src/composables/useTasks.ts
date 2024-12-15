@@ -20,7 +20,6 @@ export const useTasks = () => {
     error.value = null
     try {
       tasks.value = await createTaskService.getTasks()
-      console.log(tasks)
     } catch (e) {
       error.value = '取得に失敗しました'
       console.error(e)
@@ -43,6 +42,12 @@ export const useTasks = () => {
     }
   }
 
+  /**
+   * タスクを更新する
+   * タスクのステータスを更新する
+   * @param id タスクID
+   * @param taskData 更新するタスクデータ
+   */
   const updateTask = async (id: number, taskData: UpdateTaskPayload): Promise<void> => {
     loading.value = true
     error.value = null

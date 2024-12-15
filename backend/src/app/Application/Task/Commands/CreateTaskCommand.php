@@ -31,6 +31,7 @@ class CreateTaskCommand
             dueDate: $dueDate ? new DateTime($dueDate) : null,
             status: TaskStatus::fromOrDefault($status),
             priority: TaskPriority::fromOrDefault($priority),
+            id: null,
             userId: $userId
         );
 
