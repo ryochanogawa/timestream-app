@@ -21,6 +21,13 @@
     "_name": "_63e0f869"
   },
   {
+    "name": "teams",
+    "path": "/teams",
+    "component": "/app/src/pages/teams/index.vue",
+    "chunkName": "pages/teams/index",
+    "_name": "_c5b46f58"
+  },
+  {
     "path": "/",
     "redirect": "/login",
     "_name": "_29172c1a"

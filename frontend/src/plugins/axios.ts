@@ -7,6 +7,7 @@ const axiosPlugin: Plugin = ({ $axios, redirect }) => {
 
   // デフォルトヘッダーの設定
   $axios.setHeader('Content-Type', 'application/json')
+  $axios.setHeader('Accept', 'application/json')
 
   $axios.defaults.withCredentials = true
 

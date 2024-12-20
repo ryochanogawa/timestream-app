@@ -7,6 +7,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _1cd9f278 = () => interopDefault(import('../src/pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _02f16b98 = () => interopDefault(import('../src/pages/register.vue' /* webpackChunkName: "pages/register" */))
 const _63e0f869 = () => interopDefault(import('../src/pages/tasks.vue' /* webpackChunkName: "pages/tasks" */))
+const _c5b46f58 = () => interopDefault(import('../src/pages/teams/index.vue' /* webpackChunkName: "pages/teams/index" */))
 
 const emptyFn = () => {}
 
@@ -31,6 +32,10 @@ export const routerOptions = {
     path: "/tasks",
     component: _63e0f869,
     name: "tasks"
+  }, {
+    path: "/teams",
+    component: _c5b46f58,
+    name: "teams"
   }, {
     path: "/",
     redirect: "/login"

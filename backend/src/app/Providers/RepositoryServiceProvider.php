@@ -6,14 +6,19 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Domain\Task\Repositories\TaskRepositoryInterface;
 use App\Domain\User\Repositories\UserRepositoryInterface;
+use App\Domain\Team\Repositories\TeamRepositoryInterface;
 use App\Infrastructure\Task\Repositories\EloquentTaskRepository;
 use App\Infrastructure\User\Repositories\EloquentUserRepository;
+use App\Infrastructure\Team\Repositories\EloquentTeamRepository;
 use App\Application\Task\Commands\CreateTaskCommand;
 use App\Application\Task\Commands\UpdateTaskCommand;
 use App\Application\User\Commands\LoginUserCommand;
+use App\Application\Team\Commands\CreateTeamCommand;
+use App\Application\Team\Commands\UpdateTeamCommand;
 use App\Application\User\Commands\RegisterUserCommand;
 use App\Application\Task\Queries\GetTaskListQuery;
 use App\Application\User\Queries\GetUserQuery;
+use App\Application\Team\Queries\GetTeamQuery;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -59,6 +64,27 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(GetUserQuery::class, function ($app) {
             return new GetUserQuery(
                 $app->make(UserRepositoryInterface::class)
+            );
+        });
+
+
+        // Team関連のバインディングを追加
+        $this->app->bind(TeamRepositoryInterface::class, EloquentTeamRepository::class);
+        $this->app->bind(CreateTeamCommand::class, function ($app) {
+            return new CreateTeamCommand(
+                $app->make(TeamRepositoryInterface::class)
+            );
+        });
+
+        $this->app->bind(UpdateTeamCommand::class, function ($app) {
+            return new UpdateTeamCommand(
+                $app->make(TeamRepositoryInterface::class)
+            );
+        });
+
+        $this->app->bind(GetTeamQuery::class, function ($app) {
+            return new GetTeamQuery(
+                $app->make(TeamRepositoryInterface::class)
             );
         });
     }

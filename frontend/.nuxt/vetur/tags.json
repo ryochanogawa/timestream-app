@@ -4,5 +4,8 @@
   },
   "TaskForm": {
     "description": "Auto imported from components/TaskForm.vue"
+  },
+  "TeamForm": {
+    "description": "Auto imported from components/TeamForm.vue"
   }
 }

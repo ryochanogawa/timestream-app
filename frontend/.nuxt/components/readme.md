@@ -8,3 +8,4 @@ You can directly use them in pages and other components without the need to impo
 
 - `<NavigationHeader>` | `<navigation-header>` (components/NavigationHeader.vue)
 - `<TaskForm>` | `<task-form>` (components/TaskForm.vue)
+- `<TeamForm>` | `<team-form>` (components/TeamForm.vue)

@@ -1,5 +1,6 @@
 export { default as NavigationHeader } from '../../src/components/NavigationHeader.vue'
 export { default as TaskForm } from '../../src/components/TaskForm.vue'
+export { default as TeamForm } from '../../src/components/TeamForm.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
